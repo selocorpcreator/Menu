@@ -7,7 +7,7 @@
 <meta name="description" content="Dedi Tatlı & Catering menüsü — Defne / Hatay. Günlük taze üretim.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   /* ==========================================================
      RENKLER
@@ -140,6 +140,111 @@
   .bilgi{flex:1; min-width:0}
   /* Fotosuz satırlar (içecekler) için hafif iç boşluk */
   li:not(:has(.foto)) .bilgi{padding:2px 4px}
+
+  /* Bölüm tanıtım görseli (geniş) */
+  .vitrin{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:14px;
+    margin-top:14px;
+    display:block;
+    background:#EFE7D6;
+  }
+
+  /* ---------- HİKÂYEMİZ (başlıkta el yazısı link) ---------- */
+  .hikaye-link{
+    display:inline-block;
+    margin-top:18px;
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:30px;
+    color:#FFFFFF;
+    text-decoration:none;
+    line-height:1;
+    text-shadow:0 2px 8px rgba(0,0,0,.25);
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .hikaye-link::after{
+    content:"";
+    display:block;
+    width:54%;
+    height:2px;
+    margin:6px auto 0;
+    background:rgba(255,255,255,.55);
+    border-radius:2px;
+  }
+  .hikaye-link:active{transform:scale(.97)}
+
+  /* ---------- MODAL (açılır hikâye penceresi) ---------- */
+  .modal-arka{
+    position:fixed; inset:0;
+    background:rgba(30,36,26,.55);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+    display:none;
+    align-items:center; justify-content:center;
+    padding:22px;
+    z-index:50;
+  }
+  .modal-arka.acik{display:flex}
+  .modal-ic{
+    background:var(--krema);
+    border-radius:20px;
+    max-width:480px; width:100%;
+    max-height:82vh; overflow-y:auto;
+    padding:30px 24px 28px;
+    position:relative;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+  }
+  .modal-kapat{
+    position:absolute; top:12px; right:14px;
+    background:none; border:none;
+    font-size:30px; line-height:1;
+    color:var(--soluk); cursor:pointer;
+    padding:4px 8px;
+  }
+  .modal-baslik{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:40px;
+    color:var(--zeytin);
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .modal-ic p{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--metin);
+    margin-top:14px;
+  }
+  .modal-imza{
+    margin-top:20px;
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:22px;
+    color:var(--serbet);
+    text-align:center;
+  }
+
+  /* ---------- ORGANİZASYON GALERİSİ ---------- */
+  .galeri{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:18px;
+  }
+  .galeri img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:12px;
+    background:rgba(255,255,255,.1);
+  }
+  .galeri img:first-child{
+    grid-column:1 / -1;   /* ilk foto tam genişlik */
+    aspect-ratio:16/10;
+  }
   .satir{
     display:flex; align-items:baseline; gap:8px;
   }
@@ -207,6 +312,7 @@
   <div class="alt">Tatlı Dükkanı · Defne / Hatay</div>
   <div class="taze">✨ Tatlılarımızın tamamı günlük ve taze hazırlanır.</div>
   <div class="acik"><b>●&nbsp;Açık</b> &nbsp;·&nbsp; Kapanış 22:00</div>
+  <a class="hikaye-link" href="#" onclick="document.getElementById('hikayeModal').classList.add('acik');return false;">Hikâyemiz</a>
 </header>
 
 <nav aria-label="Menü kategorileri">
@@ -216,7 +322,7 @@
     <a href="#kurabiyeler">Kurabiyeler</a>
     <a href="#turtalar">Turtalar</a>
     <a href="#icecekler">İçecekler</a>
-    <a href="#katering-b">Katering</a>
+    <a href="#katering-b">Organizasyon</a>
   </div>
 </nav>
 
@@ -231,6 +337,7 @@
 
   <section id="cheesecake">
     <h2>Cheesecake</h2>
+    <img class="vitrin" src="foto/cheesecake-dilimleri.jpg" alt="Cheesecake çeşitlerimiz" loading="lazy">
     <ul>
       <li>
         <img class="foto" src="foto/san-sebastian.jpg" alt="San Sebastian" loading="lazy">
@@ -287,6 +394,20 @@
           <div class="aciklama">Bol çikolata soslu — adet.</div>
         </div>
       </li>
+      <li>
+        <img class="foto" src="foto/belcika-ekler.jpg" alt="Belçika Çikolatalı Ekler" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Belçika Çikolatalı Ekler</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+          <div class="aciklama">Belçika çikolatası ve Antep fıstığı ile — adet.</div>
+        </div>
+      </li>
+      <li>
+        <img class="foto" src="foto/visneli-brownie-muffin.jpg" alt="Vişneli Brownie Muffin" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Vişneli Brownie Muffin</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+          <div class="aciklama">Çatlak yüzeyli, vişne dolgulu — adet.</div>
+        </div>
+      </li>
     </ul>
   </section>
 
@@ -309,7 +430,7 @@
       <li>
         <img class="foto" src="foto/susamli-kurabiye.jpg" alt="Tereyağlı Susamlı Kurabiye" loading="lazy">
         <div class="bilgi">
-          <div class="satir"><span class="ad">Tereyağlı Susamlı Kıtır Kurabiye</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+          <div class="satir"><span class="ad">Tereyağlı Susamlı Kıyır Kurabiye</span><span class="nokta"></span><span class="fiyat">600 ₺ / kg</span></div>
         </div>
       </li>
       <li>
@@ -322,13 +443,27 @@
   </section>
 
   <section id="turtalar">
-    <h2>Turtalar</h2>
+    <h2>Turtalar &amp; Tartlar</h2>
     <ul>
       <li>
         <img class="foto" src="foto/cilekli-turta.jpg" alt="Çilekli Turta" loading="lazy">
         <div class="bilgi">
           <div class="satir"><span class="ad">Çilekli Turta</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
           <div class="aciklama">Pudra şekerli, çilek dolgulu — adet.</div>
+        </div>
+      </li>
+      <li>
+        <img class="foto" src="foto/elmali-tart.jpg" alt="Elmalı Tart" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Elmalı Tart</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+          <div class="aciklama">Bademli, pudra şekerli — adet.</div>
+        </div>
+      </li>
+      <li>
+        <img class="foto" src="foto/mini-cikolatali-tart.jpg" alt="Mini Çikolatalı Tart" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Mini Çikolatalı Tart</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+          <div class="aciklama">Çikolatalı, Antep fıstıklı ve çilekli çeşitler — adet.</div>
         </div>
       </li>
     </ul>
@@ -345,7 +480,7 @@
       <li><div class="bilgi"><div class="satir"><span class="ad">Latte</span><span class="nokta"></span><span class="fiyat">130 ₺</span></div></div></li>
       <li><div class="bilgi"><div class="satir"><span class="ad">Iced Latte</span><span class="nokta"></span><span class="fiyat">130 ₺</span></div></div></li>
       <li><div class="bilgi"><div class="satir"><span class="ad">Cappuccino</span><span class="nokta"></span><span class="fiyat">130 ₺</span></div></div></li>
-      <li><div class="bilgi"><div class="satir"><span class="ad">Americano</span><span class="nokta"></span><span class="fiyat">140 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Americano</span><span class="nokta"></span><span class="fiyat">110 ₺</span></div></div></li>
       <li><div class="bilgi"><div class="satir"><span class="ad">Cold Brew</span><span class="nokta"></span><span class="fiyat">180 ₺</span></div></div></li>
       <li><div class="bilgi"><div class="satir"><span class="ad">Filtre Kahve</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div></div></li>
       <li><div class="bilgi"><div class="satir"><span class="ad">Ballı Süt</span><span class="nokta"></span><span class="fiyat">110 ₺</span></div></div></li>
@@ -354,11 +489,33 @@
   </section>
 
   <section id="katering-b" class="katering">
-    <h2>Katering Hizmeti</h2>
-    <p>Nişan, düğün, doğum günü ve kurumsal davetleriniz için tatlı ikram masaları hazırlıyoruz. Detay ve fiyat için bizi arayın, birlikte planlayalım.</p>
+    <h2>Organizasyon &amp; Katering</h2>
+    <p>Nişan, düğün, kına, doğum günü ve kurumsal davetleriniz için özenle hazırlanmış tatlı ve ikram masaları kuruyoruz. Butik tartlar, mini cheesecake'ler, kavanoz tatlılar, çikolatalar ve tuzlu ikramlarla; masanızı hem göze hem damağa hitap eden bir sunuma dönüştürüyoruz.</p>
+    <p>Her organizasyonu size özel planlıyoruz — çiçek süslemesinden sunum standlarına kadar her detayı sizinle birlikte kurguluyoruz. Detay ve fiyat için bizi arayın.</p>
+    <div class="galeri">
+      <img src="foto/katering-1.jpg" alt="Organizasyon masası" loading="lazy">
+      <img src="foto/katering-2.jpg" alt="Fıstıklı çikolatalı tartlar" loading="lazy">
+      <img src="foto/katering-3.jpg" alt="Davet ikramları" loading="lazy">
+      <img src="foto/katering-4.jpg" alt="Kavanoz tatlılar ve shot sunumlar" loading="lazy">
+      <img src="foto/katering-5.jpg" alt="Meyve ve tatlı sunumu" loading="lazy">
+    </div>
   </section>
 
 </main>
+
+<!-- ============ HİKÂYEMİZ AÇILIR PENCERE (MODAL) ============ -->
+<div class="modal-arka" id="hikayeModal" onclick="if(event.target===this)this.classList.remove('acik')">
+  <div class="modal-ic">
+    <button class="modal-kapat" onclick="document.getElementById('hikayeModal').classList.remove('acik')" aria-label="Kapat">&times;</button>
+    <div class="modal-baslik">Hikâyemiz</div>
+    <p>Her güzel hikâye küçük bir hayalle başlar… Bizim hikâyemiz de evimizin mutfağında, sevgiyle hazırladığımız butik tatlılarla başladı.</p>
+    <p>İlk günden beri en büyük önceliğimiz; kaliteli malzemeler kullanarak, el emeğiyle hazırlanan, taze ve lezzetli tatlılar sunmaktı. Sevdiklerimizden aldığımız güzel yorumlar ve sizlerden gelen destek, hayalimizi büyütmemiz için bize cesaret verdi.</p>
+    <p>Bugün ise bu yolculuğu kendi dükkânımızda sürdürmenin mutluluğunu yaşıyoruz. Evimizin sıcaklığını ve samimiyetini hiç kaybetmeden, her tatlıyı aynı özen ve sevgiyle hazırlamaya devam ediyoruz.</p>
+    <p>Bizim için her sipariş sadece bir tatlı değil; doğum günlerine, kutlamalara, özel anlara ve en güzel anılarınıza eşlik eden küçük bir mutluluk demek.</p>
+    <p>Bize güvenen ve bu yolculukta yanımızda olan herkese gönülden teşekkür ederiz. Sizleri dükkânımızda ağırlamaktan ve birbirinden lezzetli butik tatlılarımızla buluşturmaktan büyük mutluluk duyuyoruz.</p>
+    <div class="modal-imza">Sevgiyle hazırlanır, mutlulukla paylaşılır. 🤍</div>
+  </div>
+</div>
 
 <footer>
   Turunçlu, Atatürk 1 Cad. Karadağ Apt. No 1/A<br>

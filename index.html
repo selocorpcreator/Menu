@@ -10,15 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   /* ==========================================================
-     RENKLER — değiştirmek istersen sadece buradaki kodları düzelt
+     RENKLER
      ========================================================== */
   :root{
-    --zeytin:   #35432E;  /* koyu zeytin yeşili (tabela rengi)   */
-    --fistik:   #8CA871;  /* fıstık yeşili (vurgu)               */
-    --krema:    #FBF7EF;  /* zemin                                */
-    --kaymak:   #FFFEFA;  /* kart zemini                          */
-    --serbet:   #B9822E;  /* fiyat rengi                          */
-    --tahta:    #23231F;  /* kara tahta etiket                    */
+    --zeytin:   #35432E;
+    --fistik:   #8CA871;
+    --krema:    #FBF7EF;
+    --kaymak:   #FFFEFA;
+    --serbet:   #B9822E;
+    --tahta:    #23231F;
     --metin:    #2E2B26;
     --soluk:    #7A756B;
   }
@@ -73,7 +73,7 @@
   }
   header .acik b{color:#A7E39B}
 
-  /* ---------- KATEGORİ ÇUBUĞU (kara tahta etiketler) ---------- */
+  /* ---------- KATEGORİ ÇUBUĞU ---------- */
   nav{
     position:sticky; top:0; z-index:10;
     background:var(--krema);
@@ -117,15 +117,29 @@
 
   .not{font-size:13px;color:var(--soluk);margin-top:4px}
 
-  /* ---------- ÜRÜN SATIRLARI ---------- */
+  /* ---------- ÜRÜN SATIRLARI (FOTOĞRAFLI) ---------- */
   ul{list-style:none;margin-top:14px}
   li{
     background:var(--kaymak);
     border:1px solid #EDE5D5;
-    border-radius:12px;
-    padding:14px 16px;
+    border-radius:14px;
+    padding:12px;
     margin-bottom:10px;
+    display:flex;
+    gap:14px;
+    align-items:center;
   }
+  /* Ürün fotoğrafı */
+  .foto{
+    width:76px; height:76px;
+    flex-shrink:0;
+    border-radius:10px;
+    object-fit:cover;
+    background:#EFE7D6;   /* foto yüklenene kadar boş arka plan */
+  }
+  .bilgi{flex:1; min-width:0}
+  /* Fotosuz satırlar (içecekler) için hafif iç boşluk */
+  li:not(:has(.foto)) .bilgi{padding:2px 4px}
   .satir{
     display:flex; align-items:baseline; gap:8px;
   }
@@ -144,8 +158,8 @@
   }
   .aciklama{
     margin-top:5px;
-    font-size:13.5px;
-    line-height:1.45;
+    font-size:13px;
+    line-height:1.4;
     color:var(--soluk);
   }
 
@@ -156,6 +170,7 @@
     color:var(--kaymak);
     border-radius:14px;
     padding:22px 20px;
+    display:block;
   }
   .katering h2{color:var(--kaymak)}
   .katering h2::after{background:rgba(255,255,255,.25)}
@@ -200,6 +215,7 @@
     <a href="#tatlilar">Tatlılar</a>
     <a href="#kurabiyeler">Kurabiyeler</a>
     <a href="#turtalar">Turtalar</a>
+    <a href="#icecekler">İçecekler</a>
     <a href="#katering-b">Katering</a>
   </div>
 </nav>
@@ -207,29 +223,42 @@
 <main>
 
   <!-- ============================================================
-       ÜRÜN EKLEME/DÜZENLEME: Aşağıdaki <li> bloklarını kopyalayıp
-       çoğaltabilirsin. Fiyatı sadece .fiyat içinde değiştir.
-       "Sorunuz" yazan yerlere kendi fiyatını yazman yeterli.
+       FOTOĞRAF SİSTEMİ:
+       Her ürünün <img> etiketinde src="foto/xxx.jpg" yazıyor.
+       Sen o isimle fotoğrafı "foto" klasörüne yüklersen otomatik görünür.
+       Foto yüklemezsen o kutu boş (bej) kalır, menü yine çalışır.
        ============================================================ -->
 
   <section id="cheesecake">
     <h2>Cheesecake</h2>
     <ul>
       <li>
-        <div class="satir"><span class="ad">San Sebastian</span><span class="nokta"></span><span class="fiyat">200 ₺</span></div>
-        <div class="aciklama">Akışkan merkezli, çikolata soslu — dilim.</div>
+        <img class="foto" src="foto/san-sebastian.jpg" alt="San Sebastian" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">San Sebastian</span><span class="nokta"></span><span class="fiyat">200 ₺</span></div>
+          <div class="aciklama">Akışkan merkezli, çikolata soslu — dilim.</div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Limonlu Cheesecake</span><span class="nokta"></span><span class="fiyat">190 ₺</span></div>
-        <div class="aciklama">Limon kremalı, taze nane ile — dilim.</div>
+        <img class="foto" src="foto/limonlu-cheesecake.jpg" alt="Limonlu Cheesecake" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Limonlu Cheesecake</span><span class="nokta"></span><span class="fiyat">190 ₺</span></div>
+          <div class="aciklama">Limon kremalı, taze nane ile — dilim.</div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Vişneli Cheesecake</span><span class="nokta"></span><span class="fiyat">190 ₺</span></div>
-        <div class="aciklama">Bol vişne soslu — dilim.</div>
+        <img class="foto" src="foto/visneli-cheesecake.jpg" alt="Vişneli Cheesecake" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Vişneli Cheesecake</span><span class="nokta"></span><span class="fiyat">190 ₺</span></div>
+          <div class="aciklama">Bol vişne soslu — dilim.</div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Mini Cheesecake</span><span class="nokta"></span><span class="fiyat">95 ₺</span></div>
-        <div class="aciklama">Limon, vişne ve Antep fıstıklı çeşitler — adet.</div>
+        <img class="foto" src="foto/mini-cheesecake.jpg" alt="Mini Cheesecake" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Mini Cheesecake</span><span class="nokta"></span><span class="fiyat">95 ₺</span></div>
+          <div class="aciklama">Limon, vişne ve Antep fıstıklı çeşitler — adet.</div>
+        </div>
       </li>
     </ul>
   </section>
@@ -238,16 +267,25 @@
     <h2>Tatlılar</h2>
     <ul>
       <li>
-        <div class="satir"><span class="ad">Magnolia</span><span class="nokta"></span><span class="fiyat">195 ₺</span></div>
-        <div class="aciklama">Karamelli, çilekli, Oreolu günlük çeşitler.</div>
+        <img class="foto" src="foto/magnolia.jpg" alt="Magnolia" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Magnolia</span><span class="nokta"></span><span class="fiyat">195 ₺</span></div>
+          <div class="aciklama">Karamelli, çilekli, Oreolu günlük çeşitler.</div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Tiramisu</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div>
-        <div class="aciklama">Klasik, günlük hazırlanmış — kutu.</div>
+        <img class="foto" src="foto/tiramisu.jpg" alt="Tiramisu" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Tiramisu</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div>
+          <div class="aciklama">Klasik, günlük hazırlanmış — kutu.</div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Profiterol</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div>
-        <div class="aciklama">Bol çikolata soslu — adet.</div>
+        <img class="foto" src="foto/profiterol.jpg" alt="Profiterol" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Profiterol</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div>
+          <div class="aciklama">Bol çikolata soslu — adet.</div>
+        </div>
       </li>
     </ul>
   </section>
@@ -256,17 +294,29 @@
     <h2>Kurabiyeler &amp; Brownie</h2>
     <ul>
       <li>
-        <div class="satir"><span class="ad">Brownie Kurabiye</span><span class="nokta"></span><span class="fiyat">600 ₺ / kg</span></div>
-        <div class="aciklama">Çatlak yüzeyli, yoğun çikolatalı.</div>
+        <img class="foto" src="foto/brownie-kurabiye.jpg" alt="Brownie Kurabiye" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Brownie Kurabiye</span><span class="nokta"></span><span class="fiyat">600 ₺ / kg</span></div>
+          <div class="aciklama">Çatlak yüzeyli, yoğun çikolatalı.</div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Antep Fıstık Kremalı Brownie</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+        <img class="foto" src="foto/fistikli-brownie.jpg" alt="Antep Fıstık Kremalı Brownie" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Antep Fıstık Kremalı Brownie</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Tereyağlı Susamlı Kıyır Kurabiye</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+        <img class="foto" src="foto/susamli-kurabiye.jpg" alt="Tereyağlı Susamlı Kurabiye" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Tereyağlı Susamlı Kıyır Kurabiye</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+        </div>
       </li>
       <li>
-        <div class="satir"><span class="ad">Elmalı Kurabiye</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+        <img class="foto" src="foto/elmali-kurabiye.jpg" alt="Elmalı Kurabiye" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Elmalı Kurabiye</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+        </div>
       </li>
     </ul>
   </section>
@@ -275,9 +325,31 @@
     <h2>Turtalar</h2>
     <ul>
       <li>
-        <div class="satir"><span class="ad">Çilekli Turta</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
-        <div class="aciklama">Pudra şekerli, çilek dolgulu — adet.</div>
+        <img class="foto" src="foto/cilekli-turta.jpg" alt="Çilekli Turta" loading="lazy">
+        <div class="bilgi">
+          <div class="satir"><span class="ad">Çilekli Turta</span><span class="nokta"></span><span class="fiyat">Sorunuz</span></div>
+          <div class="aciklama">Pudra şekerli, çilek dolgulu — adet.</div>
+        </div>
       </li>
+    </ul>
+  </section>
+
+  <section id="icecekler">
+    <h2>İçecekler</h2>
+    <p class="not">Sıcak &amp; soğuk kahveler, çaylar ve daha fazlası.</p>
+    <ul>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Çay</span><span class="nokta"></span><span class="fiyat">30 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Bitki Çayı</span><span class="nokta"></span><span class="fiyat">50 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Türk Kahvesi</span><span class="nokta"></span><span class="fiyat">50 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Espresso</span><span class="nokta"></span><span class="fiyat">75 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Latte</span><span class="nokta"></span><span class="fiyat">130 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Iced Latte</span><span class="nokta"></span><span class="fiyat">130 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Cappuccino</span><span class="nokta"></span><span class="fiyat">130 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Americano</span><span class="nokta"></span><span class="fiyat">110 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Cold Brew</span><span class="nokta"></span><span class="fiyat">180 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Filtre Kahve</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Ballı Süt</span><span class="nokta"></span><span class="fiyat">110 ₺</span></div></div></li>
+      <li><div class="bilgi"><div class="satir"><span class="ad">Limonata</span><span class="nokta"></span><span class="fiyat">150 ₺</span></div></div></li>
     </ul>
   </section>
 
